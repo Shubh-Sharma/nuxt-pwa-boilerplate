@@ -40,6 +40,7 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     'nuxt-purgecss',
+    '@nuxtjs/i18n',
   ],
 
   purgeCSS: {
@@ -60,6 +61,18 @@ export default {
   tailwindcss: {
     cssPath: '~/assets/styles/tailwind.css',
     // configPath: 'tailwind.config.js',
+  },
+
+  i18n: {
+    locales: [
+      { code: 'en', iso: 'en-US', file: 'en.js', dir: 'ltr' },
+      { code: 'hi', iso: 'hi-IN', file: 'hi.js', dir: 'ltr' },
+    ],
+    langDir: '~/locales/',
+    defaultLocale: 'en',
+    vueI18n: {
+      fallbackLocale: 'en',
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
