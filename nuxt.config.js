@@ -31,7 +31,15 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/pwa',
+    '@nuxtjs/google-fonts',
   ],
+
+  googleFonts: {
+    families: {
+      Mulish: [300, 400, 600, 700, 900],
+    },
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [

@@ -4,6 +4,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        border: '#ABABAB',
+        surface: {
+          input: '#575757',
+          400: '#444444',
+          500: '#383838',
+          btn: '#2f3234',
+          600: '#2e2e2e',
+          700: '#1d1d1d',
+          800: '#121212',
+        },
         brand: {
           500: '#27AE60',
           600: '#1E8549',
@@ -11,8 +21,9 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['Mulish', 'Inter', 'sans-serif'],
-        serif: ['Garamond', 'Merriweather', 'serif'],
+        // sans: ['"Mulish"', '"Inter"', 'sans-serif'],
+        // serif: ['Garamond', 'Merriweather', 'serif'],
+        body: ['"Mulish"', '"Inter"', 'sans-serif'],
       },
     },
   },
