@@ -84,6 +84,10 @@ export default {
     },
   },
 
+  serverMiddleware: {
+    '/secret': '~/server-middleware/api.js',
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     postcss: {
