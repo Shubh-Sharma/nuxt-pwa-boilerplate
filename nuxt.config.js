@@ -14,6 +14,9 @@ export default {
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    bodyAttrs: {
+      class: 'font-body',
+    },
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -29,27 +32,37 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
+    // https://go.nuxtjs.dev/axios
+    '@nuxtjs/axios',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     '@nuxtjs/pwa',
     '@nuxtjs/google-fonts',
+    'nuxt-purgecss',
+    '@nuxtjs/i18n',
   ],
 
   googleFonts: {
     families: {
       Mulish: [300, 400, 600, 700, 900],
     },
+    display: 'swap', // 'auto' | 'block' | 'swap' | 'fallback' | 'optional'
+    prefetch: false,
+    preconnect: false,
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
+    // '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa',
-    'nuxt-purgecss',
-    '@nuxtjs/i18n',
+    // '@nuxtjs/pwa',
+    // 'nuxt-purgecss',
+    // '@nuxtjs/i18n',
     'portal-vue/nuxt',
+    '~/modules/toast',
+    '~/modules/modal',
+    // ['nuxt-tailvue', { toast: true }],
   ],
 
   purgeCSS: {
@@ -65,6 +78,15 @@ export default {
     manifest: {
       lang: 'en',
     },
+  },
+
+  workbox: {
+    runtimeCaching: [
+      {
+        urlPattern: 'https://fonts.gstatic.com/.*',
+        handler: 'staleWhileRevalidate',
+      },
+    ],
   },
 
   tailwindcss: {
@@ -90,6 +112,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    // analyze: true,
     postcss: {
       plugins: {
         'postcss-import': {},
@@ -100,8 +123,19 @@ export default {
     preset: {
       stage: 1, // see https://tailwindcss.com/docs/using-with-preprocessors#future-css-featuress
     },
+    filenames: {
+      app: ({ isDev, isModern }) =>
+        isDev
+          ? `[name]${isModern ? '.modern' : ''}.js`
+          : `[contenthash:7]${isModern ? '.modern' : ''}.js`,
+      chunk: ({ isDev, isModern }) =>
+        isDev
+          ? `[name]${isModern ? '.modern' : ''}.js`
+          : `[contenthash:7]${isModern ? '.modern' : ''}.js`,
+    },
     optimization: {
       splitChunks: {
+        chunks: 'all',
         cacheGroups: {
           tailwindConfig: {
             test: /tailwind\.config/,
@@ -111,6 +145,12 @@ export default {
           },
         },
       },
+    },
+    extend(config, { isDev, isClient }) {
+      if (isClient) {
+        config.optimization.splitChunks.maxSize = 102400;
+        // console.log(JSON.stringify(config, null, 2));
+      }
     },
   },
 };
