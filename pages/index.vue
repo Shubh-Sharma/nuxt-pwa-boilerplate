@@ -1,7 +1,8 @@
 <template>
-  <Tutorial/>
+  <lazy-tutorial/>
 </template>
 
 <script>
-export default {}
+export default {
+}
 </script>

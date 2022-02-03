@@ -1,5 +1,5 @@
 <template>
-  <ModalBase ref="ModalBase" :active="active" :destroyed="destroy">
+  <ModalBase ref="ModalBase" :destroyed="destroy" :persistent="persistent">
     <div class="sm:flex sm:items-start">
       <div
         :class="typeColors[type]"
@@ -23,7 +23,7 @@
       <push-button
         v-if="primary"
         ref="primary"
-        class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto"
+        class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto justify-center"
         :theme="primary.theme"
         @click.native="action('primary')"
       >
@@ -31,7 +31,7 @@
       </push-button>
       <push-button
         v-if="secondary"
-        class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto"
+        class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto justify-center"
         :theme="secondary.theme"
         @click.native="action('secondary')"
       >
@@ -43,10 +43,12 @@
 
 <script>
 import {removeElement} from '../shared/utils';
-import ModalBase from './ModalBase.vue'
 
 export default {
-  components: { ModalBase },
+  components: {
+    ModalBase: () => import('./ModalBase.vue'),
+    PushButton: () => import('./PushButton.vue')
+  },
   props: {
     type: {
       type: String,
@@ -70,6 +72,11 @@ export default {
     },
     secondary: {
       type: [Boolean, Object],
+      required: false,
+      default: false,
+    },
+    persistent: {
+      type: Boolean,
       required: false,
       default: false,
     },

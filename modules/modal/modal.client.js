@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import { spawn } from '@/modules/shared/utils';
-const ModalBase = import('@/modules/modal/ModalBase');
-const GlobalModal = () => import('@/modules/modal/GlobalModal');
-const PushButton = () => import('@/modules/modal/PushButton');
+import GlobalModal from '@/modules/modal/GlobalModal';
 
 export default (ctx, inject) => {
   const modals = document.createElement('div');
@@ -16,6 +14,4 @@ export default (ctx, inject) => {
     },
   };
   inject('modal', ModalProgrammatic);
-  Vue.component('PushButton', PushButton);
-  Vue.component('ModalBase', ModalBase);
 };

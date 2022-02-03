@@ -1,4 +1,5 @@
 import path from 'path';
+import twConfig from './tailwind.config';
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -26,7 +27,16 @@ export default {
   plugins: ['~/plugins/bottomsheet.client'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: [
+    {
+      path: '~/components/icons',
+      extension: '.vue',
+    },
+    {
+      path: '~/components',
+      extension: '.vue',
+    },
+  ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -76,7 +86,10 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
+      short_name: 'Per Annum',
+      name: 'Per Annum',
       lang: 'en',
+      theme_color: twConfig.theme.extend.colors.surface[700],
     },
   },
 

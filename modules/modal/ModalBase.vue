@@ -8,9 +8,9 @@
         leave-active-class="ease-in duration-200"
         leave-class="opacity-100"
         leave-to-class="opacity-0">
-        <div v-if="active" class="fixed inset-0 transition-opacity" @click="destroy">
+        <div v-if="active" class="fixed inset-0 transition-opacity" @click="onclickoverlay">
           <div class="absolute inset-0 bg-black opacity-75"></div>
-          <div class="fixed top-0 right-0 p-3">
+          <div v-if="!persistent" class="fixed top-0 right-0 p-3">
             <div class="p-3 cursor-pointer rounded-full transition ease-in-out duration-150 hover:bg-gray-800">
               <icon-times
                 class="w-6 h-6"
@@ -61,6 +61,11 @@ export default {
       required: false,
       default: 'sm:max-w-lg',
     },
+    persistent: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   data () {
     return {
@@ -71,6 +76,11 @@ export default {
     this.active = true
   },
   methods: {
+    onclickoverlay () {
+      if (!this.persistent) {
+        this.destroy();
+      }
+    },
     destroy () {
       this.active = false
       setTimeout(() => { this.destroyed()  }, 200)
